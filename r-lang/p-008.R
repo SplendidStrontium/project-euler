@@ -40,4 +40,42 @@ A <- matrix(
 	ncol=20
 )
 A <- t(A)
-print(A)
+
+# A is imported
+# syntax is A[row,col]
+
+bigp <- 1
+bigvec <- numeric(0)
+
+for (row in 1:20) {
+	myrow <- as.numeric(A[row, ])
+
+	for (n in 1:38) {
+		vec <- numeric(0)
+		for (i in 1:13) {
+			vec[i] <- myrow[i+n-1]
+		}
+		myprod <- prod(vec[vec != 0])
+		if (myprod > bigp) {
+			bigp <- myprod
+			bigvec <- vec }
+	}
+}
+print(bigvec)
+print(bigp)
+
+for (col in 1:50) {
+	for (row in 1:8) {
+		vec <- numeric(0)
+		for (n in 1:13) {
+			vec[n] <- as.numeric(A[row+n-1,col])
+		}
+		myprod <- prod(vec[vec != 0])
+		if (myprod > bigp) {
+			bigp <- myprod
+			bigvec <- vec }
+	}
+}
+
+print(bigvec)
+print(bigp)
