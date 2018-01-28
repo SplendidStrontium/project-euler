@@ -3,47 +3,40 @@
 
 # helper functions
 is.prime <- function(x) {
-	prm <- TRUE
-	# quickly get rid of multiples of 2,3
-	if (x %% 2 == 0 || x == 2) { 
-		print('gotta2')		
-		print(prm)
-		return(!prm) }
-	else if (x %% 3 == 0 || x == 3) { !prm }
-	else { 
-		testceil <- ceiling(sqrt(x))	 
-		print(testceil)
-		for (n in 5:testceil) {
-			if (x %% n == 0) { 
-				break }
-		}
-	print('yeep')	
-	return(prm)
-	}
-	return(prm)
-} 
-
-# this returns an array, in desc order, of prime factors
-rtrn.prme.arry <- function(x) {
-	if (is.prime(x)) {
-		print('im prime')
-		x
+	if (x == 1 || x == 2 || x == 3) {
+		return(TRUE)
 	} else {
-		myarray <- c()
-		myd <- x
-		while (!is.prime(myd)) {
-			testceil <- ceiling(sqrt(myd))
-			for (n in 2:testceil) {
-				if (is.prime(n) && (myd %% n == 0)) {
-					while (myd %% n == 0) {
-						myd <- myd/n
-						myarray <- c(n, myarray) 
-					} } } }
-	sort(myarray, decreasing = TRUE) }
+		testceil <- floor(sqrt(x))
+		for (n in 2:testceil) {
+			if (x %% n == 0) {
+				return(FALSE)
+			}
+		}
+	}
+	return(TRUE)
 }
 
-# MAIN
+rtrn.prme.arry <- function(myarray) {
+	mynum <- tail(myarray, n=1)
+	testceil <- floor(sqrt(mynum))
+	testflr <- myarray[length(myarray)-1]
+	for (n in testflr:testceil) {
+		if (n != 1 && is.prime(n) && (mynum %% n == 0)) {
+			remain <- (mynum/n)
+			newarray <- c(myarray[1:(length(myarray)-1)],n,remain)
+			print(newarray)
+			if (is.prime(remain)) {
+				print('hi')
+				return(newarray)
+			} else {
+				return(rtrn.prme.arry(newarray))
+			}
+		}
+	}
+}
 
-#print(rtrn.prme.arry(7000))
-#[1] 7 5 5 5 2 2 2
-print(rtrn.prme.arry(38))
+
+# MAIN
+a <- c(1,13195)
+b <- c(1,600851475143)
+print(rtrn.prme.arry(b))

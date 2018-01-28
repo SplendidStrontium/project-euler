@@ -21,7 +21,7 @@ isPrime <- function(x) {
 		if (isPrime(a)) {
 			if (x%%a == 0) {return(FALSE)}
 		}
-		a <- a+1
+		a <- a+2
 	}
 	return(TRUE)
 
@@ -32,7 +32,7 @@ isPrime <- function(x) {
 #
 
 sum <- 0
-for (i in 2:20) {
+for (i in 2:2000000) {
 	if (isPrime(i)) {
 		sum <- sum+i } 
 }
