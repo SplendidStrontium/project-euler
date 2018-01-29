@@ -1,9 +1,16 @@
 # problem 4
 # find the largest palindromic product of two 3-digit numbers
 
+# example set
+a <- 91
+b <- 99
+c <- a*b
+d <- 100001
+e <- 100002
+
 
 # helper fcns
-letterize <- function(num) {
+gimmearray <- function(num) {
 	digits <- nchar(num, type = "chars")
 	arr <- 0
 	for (i in 1:digits) {
@@ -16,25 +23,16 @@ letterize <- function(num) {
 
 verif_palin <- function(array) {
 	if (identical(array,rev(array))) {
-		return(TRUE)
+		return('TRUE')
 	} else {
-		return(FALSE)
+		return('FALSE')
 	}
 }
 
 
 # MAIN
-
-tflr <- 2
-tceil <- 999
-tprod <- 2
-for (x in tflr:tceil){
-	for (y in tflr:tceil){
-		z <- x*y
-		zlet <- letterize(z)
-		if (verif_palin(zlet) && (z > tprod)) {
-			tprod <- z
-			print(zlet)
-		}
-	}
+arr1 <- gimmearray(d)
+arr2 <- gimmearray(e)
+if (verif_palin(arr1)) {
+	print(arr1)
 }
