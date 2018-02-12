@@ -9,7 +9,6 @@ for (pow in 2:1000){
 		arr[len] <- 0
 	}
 
-	print(len)
 	rem <-0
 	for (pos in 1:len){
 		tres <- rem + (arr[pos] *2) %% 10
