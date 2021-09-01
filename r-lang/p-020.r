@@ -14,7 +14,7 @@ line1 <- c(0)
 line2 <- c(0)
 
 #factorial number determines iterations
-for (n in 4:12) {
+for (n in 4:99) {
 	if (n < 10) {
 		for (place in length(fact):1) {
 			res <- rem + fact[place]*n
@@ -55,8 +55,12 @@ for (n in 4:12) {
 			line2 <- c(rem,line2)
 		}
 		line2 <- c(line2,0)
-		print(line1)
-		print(line2)
+		if (length(line1) < length(line2)) {
+			line1 <- c(0,line1)
+		} 
+		if (length(line1) > length(line2)) {
+			line2 <- c(0,line2)
+		}
 
 		rem <- 0
 		for (place in length(line1):1) {
@@ -80,3 +84,5 @@ for (sumplace in 1:length(fact)) {
 }
 
 print(paste0(sum))
+#solved answer sep 1 2021
+#sum of 100 factorial digits is 648
