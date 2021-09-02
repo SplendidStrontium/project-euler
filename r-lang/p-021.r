@@ -14,42 +14,38 @@
 
 #BEGIN function to return an array of proper divisors
 createdivarray <- function(dividend) {
+	if (dividend == 1) {
+		return(c(1))
+	}
 	divisormax <- floor(dividend/2)
-	divisorarray <<- NULL
+	divisorarray <- NULL
 	for (divisor in 1:divisormax) {
 		res <- dividend %% divisor
+		if (res != 0) {
+			next
+		}
 		if (res == 0 && isFALSE(divisor %in% divisorarray)) {
 			divisorarray <- c(divisorarray,divisor)
-		}
+		} else {next}
 	}
 	return(divisorarray)
 }
 #END function to return array of proper divisors
 
 #BEGIN function to test if amicable number
-isuniqueamicableno <- function(x) {
-	#do not test pairs a second time
-	if (x %in% skipdiv) {
-		return(FALSE)
-	}
-	
+isamicableno <- function(x) {	
 	#find first number sum
 	myarray1 <- createdivarray(x)
 	arraysum1 <- sum(myarray1)
-	print(paste0("divisorsum ",arraysum1))
 
 	#find second number sum
 	myarray2 <- createdivarray(arraysum1)
 	arraysum2 <- sum(myarray2)
-	print(paste0("divisorsum ",arraysum2))
 
 	#test for equality
-	if (arraysum2 == x) {
-		skipdiv <- c(skipdiv,x,arraysum1)
-		print(x)
-		print(arraysum1)
-		mysum <- sum(mysum,x,arraysum1)
-		print(mysum)
+	if (arraysum2 == x && arraysum1 != arraysum2) {
+		skipdiv <<- c(skipdiv,x,arraysum1)
+		mysum <<- sum(mysum,x,arraysum1)
 		return(TRUE)
 	}
 	
@@ -58,21 +54,28 @@ isuniqueamicableno <- function(x) {
 #END function to test if amicable number
 
 #BEGIN global variables
-skipdiv <<- NULL
+skipdiv <- NULL
 mysum <- 0
 #END global variables
 
 
 #BEGIN main logic
 
-for (y in 220:220) {
-	if (isuniqueamicableno(y)) {
-		mysum <- sum(skipdiv)
+for (y in 220:10000) {
+	#do not test pairs a second time
+	if (y %in% skipdiv) {
+		next
 	}
+	isamicableno(y)
 }
 
 #print total sum
 print(skipdiv)
-print(mysum)
+mysum <- sum(skipdiv)
+print(paste0("final sum ",mysum))
 
 #END main logic
+
+#solved answer sep 2 2021
+#sum of amicable numbers under 10000 is 31626
+#runtime is a bit high but solved
